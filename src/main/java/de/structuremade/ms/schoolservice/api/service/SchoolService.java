@@ -20,23 +20,24 @@ public class SchoolService {
     @Autowired
     UserRepository userRepo;
 
-    public int create(String name, String email){
+    public int create(String name, String email) {
         try {
-        if (userRepo.existsByEmail(email)){
-            return 1;
-        }
-        School school = new School();
-        school.setName(name);
-        school.setEmail(email);
-        schoolRepo.save(school);
-        school = schoolRepo.findByEmail(email);
-        createUser(email, school.getId());
-        }catch (Exception e){
+            if (userRepo.existsByEmail(email)) {
+                return 1;
+            }
+            School school = new School();
+            school.setName(name);
+            school.setEmail(email);
+            schoolRepo.save(school);
+            school = schoolRepo.findByEmail(email);
+            createUser(email, school.getId());
+        } catch (Exception e) {
             return 2;
         }
         return 0;
     }
-    private void createUser(String email, String schoolid){
+
+    private void createUser(String email, String schoolid) {
         List<String> roles = new ArrayList<>();
         List<School> schools = new ArrayList<>();
         schools.add(schoolRepo.getOne(schoolid));
