@@ -79,6 +79,7 @@ public class SchoolService {
                 }
                 schoolsettings.setDateOfBegin(convertDate(json.getBegin()));
                 schoolsettings.setDateOfEnd(convertDate(json.getEnd()));
+                schoolsettings.setSchool(schoolRepo.getOne(schoolid));
                 schoolsettingsRepo.save(schoolsettings);
                 return 0;
             }
