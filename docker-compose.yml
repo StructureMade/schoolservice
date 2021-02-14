@@ -3,4 +3,4 @@ services:
   api:
     image: schoolservice
     ports:
-      - 85:8080
+      - 80:80

@@ -5,16 +5,13 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Date;
 
 @Entity
-@Table(name = "schools", schema = "services", indexes = {
-        @Index(name = "id_schoolid", columnList = "id", unique = true)
-})
+@Table(name = "holidays")
 @Getter
 @Setter
-public class School {
-
+public class Holidays {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -25,14 +22,12 @@ public class School {
     private String name;
 
     @Column
-    private String email;
+    private Date beginofholidays;
 
-    @OneToMany(targetEntity = Holidays.class)
-    @JoinColumn(name = "school")
-    private List<Holidays> holidays;
+    @Column
+    private Date endofholidays;
 
-    @OneToOne(targetEntity = Schoolsettings.class)
-    @JoinColumn(name = "settings")
-    private Schoolsettings schoolsettings;
-
+    @ManyToOne
+    @JoinColumn(name = "school", foreignKey = @ForeignKey(name = "fk_school"))
+    private School school;
 }
